@@ -13,18 +13,13 @@ return new class extends Migration
     {
         Schema::create('dendas', function (Blueprint $table) {
             $table->id();
-
             $table->foreignId('transaksi_sewa_id')
                 ->constrained('transaksi_sewas')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-
             $table->integer('jumlah_hari_terlambat')->default(0);
-
             $table->decimal('nominal_denda', 12, 2)->default(0);
-
             $table->text('keterangan')->nullable();
-
             $table->timestamps();
         });
     }

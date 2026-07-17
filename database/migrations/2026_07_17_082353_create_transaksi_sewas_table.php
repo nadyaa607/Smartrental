@@ -13,29 +13,23 @@ return new class extends Migration
     {
         Schema::create('transaksi_sewas', function (Blueprint $table) {
             $table->id();
-
             // Admin / Staff yang membuat transaksi
             $table->foreignId('user_id')
                 ->constrained('users')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-
             // Pelanggan yang menyewa
             $table->foreignId('pelanggan_id')
                 ->constrained('pelanggans')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-
             // Kode transaksi
             $table->string('kode_transaksi')->unique();
-
             // Tanggal
             $table->date('tanggal_sewa');
             $table->date('tanggal_kembali');
-
             // Total biaya
             $table->decimal('total_harga', 12, 2)->default(0);
-
             // Status transaksi
             $table->enum('status', [
                 'Menunggu',
@@ -43,7 +37,6 @@ return new class extends Migration
                 'Selesai',
                 'Dibatalkan'
             ])->default('Menunggu');
-
             $table->timestamps();
         });
     }

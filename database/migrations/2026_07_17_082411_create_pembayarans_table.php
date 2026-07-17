@@ -18,24 +18,18 @@ return new class extends Migration
                 ->constrained('transaksi_sewas')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-
             $table->date('tanggal_bayar');
-
             $table->decimal('jumlah_bayar', 12, 2);
-
             $table->enum('metode_pembayaran', [
                 'Cash',
                 'Transfer',
                 'QRIS'
             ]);
-
             $table->enum('status', [
                 'Belum Lunas',
                 'Lunas'
             ])->default('Belum Lunas');
-
             $table->string('bukti_pembayaran')->nullable();
-
             $table->timestamps();
         });
     }

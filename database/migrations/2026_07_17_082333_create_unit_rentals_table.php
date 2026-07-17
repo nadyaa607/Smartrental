@@ -13,28 +13,21 @@ return new class extends Migration
     {
         Schema::create('unit_rentals', function (Blueprint $table) {
             $table->id();
-
             $table->foreignId('kategori_id')
                 ->constrained('kategori_units')
                 ->cascadeOnUpdate()
                 ->cascadeOnDelete();
-
             $table->string('kode_unit')->unique();
             $table->string('nama_unit');
             $table->text('deskripsi')->nullable();
-
             $table->decimal('harga_sewa', 12, 2);
-
             $table->integer('stok')->default(1);
-
             $table->enum('status', [
                 'tersedia',
                 'disewa',
                 'maintenance'
             ])->default('tersedia');
-
             $table->string('gambar')->nullable();
-
             $table->timestamps();
         });
     }
