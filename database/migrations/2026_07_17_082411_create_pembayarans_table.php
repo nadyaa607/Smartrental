@@ -17,18 +17,11 @@ return new class extends Migration
             $table->foreignId('transaksi_sewa_id')
                 ->constrained('transaksi_sewas')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->date('tanggal_bayar');
             $table->decimal('jumlah_bayar', 12, 2);
-            $table->enum('metode_pembayaran', [
-                'Cash',
-                'Transfer',
-                'QRIS'
-            ]);
-            $table->enum('status', [
-                'Belum Lunas',
-                'Lunas'
-            ])->default('Belum Lunas');
+            $table->enum('metode_pembayaran', ['Cash','Transfer','QRIS'])->default('Cash'); 
+            $table->enum('status', ['Belum Lunas','Lunas'])->default('Belum Lunas');
             $table->string('bukti_pembayaran')->nullable();
             $table->timestamps();
         });

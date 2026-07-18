@@ -16,17 +16,13 @@ return new class extends Migration
             $table->foreignId('kategori_id')
                 ->constrained('kategori_units')
                 ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+                ->restrictOnDelete();
             $table->string('kode_unit')->unique();
             $table->string('nama_unit');
             $table->text('deskripsi')->nullable();
             $table->decimal('harga_sewa', 12, 2);
             $table->integer('stok')->default(1);
-            $table->enum('status', [
-                'tersedia',
-                'disewa',
-                'maintenance'
-            ])->default('tersedia');
+            $table->enum('status', ['tersedia','disewa','maintenance'])->default('tersedia');
             $table->string('gambar')->nullable();
             $table->timestamps();
         });

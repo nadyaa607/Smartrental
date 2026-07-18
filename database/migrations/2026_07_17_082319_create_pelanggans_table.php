@@ -7,25 +7,28 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Menambahkan kolom user_id ke tabel pelanggans.
+     * Kolom ini menghubungkan akun login (users, role=pelanggan)
+     * dengan data profil pelanggan. Nullable karena di masa depan
+     * admin bisa saja menambahkan data pelanggan walk-in tanpa akun login.
      */
     public function up(): void
     {
-        Schema::create('pelanggans', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama');
-            $table->string('no_identitas')->unique();
-            $table->string('telepon', 20);
-            $table->text('alamat');
-            $table->timestamps();
+        Schema::table('pelanggans', function (Blueprint $table) {
+            $table->foreignId('user_id')
+                ->nullable()
+                ->after('id')
+                ->constrained('users')
+                ->cascadeOnUpdate()
+                ->cascadeOnDelete();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('pelanggans');
+        Schema::table('pelanggans', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+            $table->dropColumn('user_id');
+        });
     }
 };
