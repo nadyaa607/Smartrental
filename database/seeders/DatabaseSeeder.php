@@ -18,24 +18,24 @@ class DatabaseSeeder extends Seeder
      * disiapkan lewat seeder ini.
      */
     public function run(): void
-    {
-        $admin = User::create([
-            'name' => 'Administrator',
-            'email' => 'admin@smartrental.test',
-            'password' => Hash::make('password'),
-            'role' => 'admin',
-        ]);
-
+{
+    $this->call([
+        AdminSeeder::class,
+    ]);
+        
         $userPelanggan = User::create([
-            'name' => 'Budi Santoso',
+            'name' => 'Pelanggan',
             'email' => 'pelanggan@smartrental.test',
+            'no_hp' => '081234567890',
             'password' => Hash::make('password'),
             'role' => 'pelanggan',
         ]);
 
         Pelanggan::create([
             'user_id' => $userPelanggan->id,
-            'nama' => 'Budi Santoso',
+            'kode_pelanggan' => 'PLG-000001',
+            'nama' => 'Pelanggan',
+            'email' => 'pelanggan@smartrental.test',
             'no_identitas' => '1301234567890001',
             'telepon' => '081234567890',
             'alamat' => 'Batusangkar, Sumatera Barat',

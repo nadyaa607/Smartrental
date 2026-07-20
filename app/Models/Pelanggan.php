@@ -8,23 +8,16 @@ class Pelanggan extends Model
 {
     protected $fillable = [
         'user_id',
+        'kode_pelanggan',
         'nama',
-        'no_identitas',
+        'email',
         'telepon',
         'alamat',
+        'no_identitas',
     ];
 
-    /**
-     * Relasi ke akun login (users). Nullable — bisa kosong jika
-     * data pelanggan diinput manual oleh admin tanpa akun login.
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function transaksiSewas()
-    {
-        return $this->hasMany(TransaksiSewa::class);
     }
 }
